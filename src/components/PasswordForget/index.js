@@ -23,17 +23,14 @@ class PasswordForgetFormBase extends Component {
     this.state = { ...INITIAL_STATE };
   }
 
-  onSubmit = (event) => {
+  onSubmit = async (event) => {
     const { email } = this.state;
-
-    this.props.firebase
-      .doPasswordReset(email)
-      .then(() => {
-        this.setState({ ...INITIAL_STATE });
-      })
-      .catch((error) => {
-        this.setState({ error });
-      });
+    try {
+      await this.props.firebase.doPasswordReset(email);
+      this.setState({ ...INITIAL_STATE });
+    } catch (error) {
+      console.log(error);
+    }
 
     event.preventDefault();
   };
