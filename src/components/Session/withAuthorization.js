@@ -20,6 +20,7 @@ const withAuthorization = (condition) => (Component) => {
       this.listener();
     }
     render() {
+      // console.log(authUser);
       return (
         <AuthUserContext.Consumer>
           {(authUser) =>
