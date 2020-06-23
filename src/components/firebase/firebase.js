@@ -20,23 +20,11 @@ class Firebase {
     this.db = app.database();
   }
   //**Auth API */
-  doCreateUserWithEmailAndPassword = (email, password) => {
-    try {
-      const user = this.auth.createUserWithEmailAndPassword(email, password);
-      console.log('create', user);
-      return user;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  doCreateUserWithEmailAndPassword = (email, password) =>
+    this.auth.createUserWithEmailAndPassword(email, password);
 
-  doSignInWithEmailAndPassword = (email, password) => {
-    try {
-      this.auth.signInWithEmailAndPassword(email, password);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  doSignInWithEmailAndPassword = (email, password) =>
+    this.auth.signInWithEmailAndPassword(email, password);
 
   doSignOut = () => this.auth.signOut();
 

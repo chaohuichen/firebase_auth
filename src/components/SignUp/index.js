@@ -26,23 +26,16 @@ class SignUpFormBase extends Component {
   onSubmit = async (event) => {
     const { username, email, passwordOne } = this.state;
     try {
-      const authuser = await this.props.firebase.doCreateUserWithEmailAndPassword(
-        email,
-        passwordOne
-      );
-      // .then((authUser) => {
-      //   // Create a user in your Firebase realtime database
-      //   // return this.props.firebase.user(authUser.user.uid).set({
-      //   //   username,
-      //   //   email,
-      //   // });
+      this.props.firebase
+        .doCreateUserWithEmailAndPassword(email, passwordOne)
+        .then((authUser) => {
+          // Create a user in your Firebase realtime database
+          return this.props.firebase.user(authUser.user.uid).set({
+            username,
+            email,
+          });
+        });
 
-      // });
-      console.log(authuser);
-      await this.props.firebase.user(authuser.user.uid).set({
-        username,
-        email,
-      });
       this.setState({ ...INITIAL_STATE });
       this.props.history.push(ROUTES.HOME);
     } catch (error) {

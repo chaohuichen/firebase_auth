@@ -32,10 +32,10 @@ class SignInFormBase extends Component {
   onSubmit = async (event) => {
     const { email, password } = this.state;
     try {
-      await this.props.firebase.doSignInWithEmailAndPassword(email, password);
+      this.props.firebase.doSignInWithEmailAndPassword(email, password);
       this.setState({ ...INITIAL_STATE });
       this.props.history.push(ROUTES.HOME);
-      // event.preventDefault();
+      event.preventDefault();
     } catch (error) {
       this.setState({ error });
     }

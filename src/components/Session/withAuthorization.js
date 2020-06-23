@@ -10,22 +10,26 @@ const withAuthorization = (condition) => (Component) => {
     componentDidMount() {
       this.listener = this.props.firebase.auth.onAuthStateChanged(
         (authUser) => {
+          console.log(authUser, 'in autor');
           if (!condition(authUser)) {
             this.props.history.push(ROUTES.SIGN_IN);
           }
-        }
+        },
+        () => this.props.history.push(ROUTES.SIGN_IN)
       );
     }
+
     componentWillUnmount() {
       this.listener();
     }
+
     render() {
-      // console.log(authUser);
       return (
         <AuthUserContext.Consumer>
-          {(authUser) =>
-            condition(authUser) ? <Component {...this.props} /> : null
-          }
+          {(authUser) => {
+            console.log(authUser);
+            return condition(authUser) ? <Component {...this.props} /> : null;
+          }}
         </AuthUserContext.Consumer>
       );
     }
